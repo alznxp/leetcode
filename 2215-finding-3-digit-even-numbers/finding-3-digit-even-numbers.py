@@ -1,13 +1,12 @@
+from collections import Counter
 class Solution:
     def findEvenNumbers(self, digits: List[int]) -> List[int]:
-        unique_integers = set()
-        n = len(digits)
+        digits_counter = Counter(map(str,digits))
 
-        for p in permutations(digits, 3):
-            if p[0] == 0:
-                continue
+        def isPossible(n):
+            num = Counter(str(n))
+            return num == (num & digits_counter)
 
-            if p[2] % 2 == 0:
-                unique_integers.add(int("".join(map(str, p))))
-        
-        return sorted(list(unique_integers))
+        output = list(filter(isPossible, range(100,1000,2)))
+
+        return output
